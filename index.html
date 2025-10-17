@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant POS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-utensils"></i> Restaurant Billing System</h1>
+            <div class="header-controls">
+                <button id="menuManagementBtn" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> Manage Menu
+                </button>
+                <button id="salesReportBtn" class="btn btn-secondary">
+                    <i class="fas fa-chart-line"></i> Sales Reports
+                </button>
+            </div>
+        </header>
+
+        <!-- Menu Management Modal -->
+        <div id="menuManagementModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Menu Management</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="menuItemForm" class="menu-form">
+                        <div class="form-group">
+                            <label for="itemName">Item Name:</label>
+                            <input type="text" id="itemName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemPrice">Price (₹):</label>
+                            <input type="number" id="itemPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemImage">Image URL:</label>
+                            <input type="url" id="itemImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Add Item</button>
+                            <button type="button" id="cancelEdit" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                        </div>
+                    </form>
+                    <div id="menuItemsList" class="menu-items-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Report Modal -->
+        <div id="salesReportModal" class="modal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h2>Sales Reports</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="report-controls">
+                        <div class="date-filter">
+                            <label for="dateFilter">Filter by:</label>
+                            <select id="dateFilter">
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div id="customDateRange" class="custom-date-range" style="display: none;">
+                            <input type="date" id="startDate">
+                            <span>to</span>
+                            <input type="date" id="endDate">
+                        </div>
+                        <button id="exportReportBtn" class="btn btn-primary">Export PDF</button>
+                    </div>
+                    <div class="report-summary">
+                        <div class="summary-card">
+                            <h3>Total Revenue</h3>
+                            <p id="totalRevenue">₹0.00</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Total Transactions</h3>
+                            <p id="totalTransactions">0</p>
+                        </div>
+                    </div>
+                    <div id="transactionsList" class="transactions-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Menu Section -->
+            <section class="menu-section">
+                <h2>Menu</h2>
+                <div id="menuGrid" class="menu-grid">
+                    <!-- Menu items will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Cart Section -->
+            <aside class="cart-section">
+                <h2>Current Order</h2>
+                <div id="cartItems" class="cart-items">
+                    <p class="empty-cart">Cart is empty</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₹0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">₹0.00</span>
+                    </div>
+                </div>
+                <div class="cart-actions">
+                    <button id="payNowBtn" class="btn btn-primary">
+                        <i class="fas fa-qrcode"></i> Pay Now
+                    </button>
+                    <button id="clearCartBtn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                    <button id="generateInvoiceBtn" class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i> Generate Invoice
+                    </button>
+                </div>
+            </aside>
+        </main>
+        
+        <!-- Payment QR Modal -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Scan to Pay</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <p style="margin-bottom:12px;opacity:0.9">Use any UPI app to scan and pay</p>
+                    <img id="qrImage" src="" alt="Payment QR"
+                         style="max-width:280px;width:100%;height:auto;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.25);display:none">
+                    <div id="qrFallback" style="display:none;color:#fff;background:rgba(255,255,255,0.08);padding:16px;border-radius:12px;border:1px dashed rgba(255,255,255,0.25)">
+                        QR image not found. Place your file in the same folder as this page
+                        with one of these names: <code>QR.png</code>, <code>QR.jpg</code>,
+                        <code>QR.jpeg</code>, or <code>QR.webp</code>.
+                    </div>
+                    <div style="margin-top:20px;font-size:1.1rem">
+                        Amount Due: <span id="amountDue" style="font-weight:700"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Cart Button -->
+        <div class="floating-cart" id="floatingCart" style="display: none;">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-badge" id="cartBadge">0</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
