@@ -566,9 +566,9 @@ class RestaurantBillingSystem {
                 },
                 {
                     id: '3',
-                    name: 'Vada',
+                    name: 'Vadai',
                     price: 10.00,
-                    imageUrl: 'https://www.awesomecuisine.com/wp-content/uploads/2014/12/medhu-vadai.jpg?w=300&h=200&fit=crop'
+                    imageUrl: 'https://i0.wp.com/www.chitrasfoodbook.com/wp-content/uploads/2015/06/cabbage-vadai.jpg?w=300&h=200&fit=crop'
                 },
                 {
                     id: '4',
@@ -586,7 +586,7 @@ class RestaurantBillingSystem {
                     id: '6',
                     name: 'Coffee',
                     price: 20.00,
-                    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H8Mu-pfh7Rb3kFFqkAs9BGl3KstjAFkb4A&s?w=300&h=200&fit=crop'
+                    imageUrl: 'https://media.assettype.com/homegrown/2024-11-28/d8kdthmm/WhatsApp-Image-2024-11-27-at-16.08.06.jpeg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true'
                 },
                 {
                     id: '7',
