@@ -561,32 +561,38 @@ class RestaurantBillingSystem {
                 {
                     id: '2',
                     name: 'Dosa',
-                    price: 15.00,
+                    price: 10.00,
                     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H8Mu-pfh7Rb3kFFqkAs9BGl3KstjAFkb4A&s?w=300&h=200&fit=crop'
                 },
                 {
                     id: '3',
                     name: 'Vada',
-                    price: 20.00,
+                    price: 10.00,
                     imageUrl: 'https://www.awesomecuisine.com/wp-content/uploads/2014/12/medhu-vadai.jpg?w=300&h=200&fit=crop'
                 },
                 {
                     id: '4',
                     name: 'Omelette',
                     price: 15.00,
-                    imageUrl: 'https://www.healthyfood.com/wp-content/uploads/2018/02/Basic-omelette.jpg?w=300&h=200&fit=crop'
+                    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW0JFwPrbMJrCvhLt_qWAWzCzjFBGCPmP81A&s'
                 },
                 {
                     id: '5',
-                    name: 'Chutney',
+                    name: 'Puttu',
                     price: 15.00,
-                    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H8Mu-pfh7Rb3kFFqkAs9BGl3KstjAFkb4A&s?w=300&h=200&fit=crop'
+                    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Puttu_%28Rice_Flour_steamed_cake%29.jpg?w=300&h=200&fit=crop'
                 },
                 {
                     id: '6',
                     name: 'Coffee',
                     price: 20.00,
                     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H8Mu-pfh7Rb3kFFqkAs9BGl3KstjAFkb4A&s?w=300&h=200&fit=crop'
+                },
+                {
+                    id: '7',
+                    name: 'Protien Salad',
+                    price: 30.00,
+                    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUS4kkPkj9sEnwgBuBoZhz7yfoffFYVGlsNw&s?w=300&h=200&fit=crop'
                 }
             ];
             this.saveToStorage('menuItems', this.menuItems);
